@@ -27,3 +27,10 @@ export function shipOrder(id: string): Order {
   order.status = 'shipped'
   return order
 }
+
+export function cancelOrder(id: string): Order {
+  const order = findOrder(id) ?? fail(404, 'order-not-found', `No order ${id}.`)
+  if (order.status !== 'placed') fail(409, 'not-placed', `Order ${id} is ${order.status}.`)
+  order.status = 'cancelled'
+  return order
+}
