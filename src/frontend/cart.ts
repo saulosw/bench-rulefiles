@@ -27,6 +27,17 @@ export class Cart {
     if (index >= 0) this.lines.splice(index, 1)
   }
 
+  setQuantity(lineId: string, quantity: number): CartLine | undefined {
+    const line = this.lines.find((candidate) => candidate.id === lineId)
+    if (line === undefined) return undefined
+    if (quantity <= 0) {
+      this.remove(lineId)
+      return undefined
+    }
+    line.quantity = quantity
+    return line
+  }
+
   totalCents(): number {
     return sumCents(this.lines.map((line) => line.quantity * line.unitCents))
   }
