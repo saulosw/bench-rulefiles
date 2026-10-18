@@ -4,7 +4,7 @@ applyTo: "src/backend/**"
 
 # Backend handlers
 
-- A handler never throws `Error` (or any other class) directly. Every failure the caller should
-  see goes through `fail(status, code, message)` from `src/backend/http.ts`, so the client always
-  gets a status and a stable `code`.
-- Handlers validate their input before touching the store.
+- An order can be cancelled only within 30 minutes of `placedAt`; after that the warehouse has
+  picked it, and cancelling must fail with `fail(409, 'cancel-window-closed', …)`.
+- Never read the time with `Date.now()` or `new Date()`; use `clock.now()` from
+  `src/backend/clock.ts`, so tests can freeze time.

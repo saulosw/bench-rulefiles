@@ -1,5 +1,6 @@
 import { newId } from '../shared/ids.js'
 import { sumCents } from '../shared/money.js'
+import { clock } from './clock.js'
 import { fail } from './http.js'
 import { findOrder, saveOrder } from './store.js'
 import type { Order, OrderLine } from './store.js'
@@ -11,7 +12,7 @@ export function placeOrder(userId: string, lines: OrderLine[]): Order {
       fail(400, 'invalid-quantity', `Invalid quantity for ${line.sku}.`)
     }
   }
-  const order: Order = { id: newId('ord'), userId, lines, status: 'placed' }
+  const order: Order = { id: newId('ord'), userId, lines, status: 'placed', placedAt: clock.now() }
   saveOrder(order)
   return order
 }

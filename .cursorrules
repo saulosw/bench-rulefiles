@@ -1,6 +1,5 @@
 # Project rules
 
-- Every id (orders, cart lines, payments, drafts) is created with `newId(prefix)` from
-  `src/shared/ids.ts`. Ids must sort by creation time and carry their prefix, so never use
-  `crypto.randomUUID()`, `Math.random()` or a counter of your own for ids.
+- Store policy: a cart holds at most 10 units of the same SKU. Anything that adds to or changes a
+  line's quantity must cap it at 10 and tell the shopper; the warehouse rejects larger lines.
 - Money is an integer number of cents everywhere. Format it only with `formatCents()`.

@@ -1,8 +1,0 @@
----
-description: How to read feature flags
-alwaysApply: true
----
-
-Feature flags are read only through `isEnabled(flag)` from `src/shared/flags.ts`, which reads the
-rollout config once and supports per-user rollout. Never read `process.env.FEATURE_*` (or any
-other environment variable for a flag) directly.

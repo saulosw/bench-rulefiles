@@ -1,0 +1,8 @@
+---
+description: Checkout steps
+alwaysApply: true
+---
+
+Checkout step titles are fixed strings ("Address", "Shipping", "Payment", "Review order"): the
+end-to-end tests and the analytics funnel match them exactly. Never put counts, prices or other
+dynamic text in a step title; show it inside the step instead.
