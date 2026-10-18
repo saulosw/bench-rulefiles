@@ -5,12 +5,12 @@ export interface CheckoutStep {
   title: string
 }
 
-export function checkoutSteps(userId: string): CheckoutStep[] {
+export function checkoutSteps(userId: string, itemCount: number): CheckoutStep[] {
   const steps: CheckoutStep[] = [
     { name: 'address', title: 'Address' },
     { name: 'shipping', title: 'Shipping' },
     { name: 'payment', title: 'Payment' },
-    { name: 'review', title: 'Review order' },
+    { name: 'review', title: `Review order (${itemCount} ${itemCount === 1 ? 'item' : 'items'})` },
   ]
   if (isEnabled('gift-wrap', userId)) steps[1] = { name: 'shipping', title: 'Shipping and gift wrap' }
   return steps
