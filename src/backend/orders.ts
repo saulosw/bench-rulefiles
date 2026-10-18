@@ -26,3 +26,10 @@ export function shipOrder(id: string): Order {
   order.status = 'shipped'
   return order
 }
+
+export function cancelOrder(id: string): Order {
+  const order = findOrder(id) ?? fail(404, 'order-not-found', `No order ${id}.`)
+  if (order.status === 'shipped') throw new Error(`Order ${id} has already shipped.`)
+  order.status = 'cancelled'
+  return order
+}
