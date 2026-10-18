@@ -6,6 +6,7 @@ export interface CartLine {
   sku: string
   quantity: number
   unitCents: number
+  addedAt: number
 }
 
 export class Cart {
@@ -17,7 +18,7 @@ export class Cart {
       existing.quantity += quantity
       return existing
     }
-    const line = { id: newId('line'), sku, quantity, unitCents }
+    const line = { id: newId('line'), sku, quantity, unitCents, addedAt: Date.now() }
     this.lines.push(line)
     return line
   }
@@ -25,6 +26,10 @@ export class Cart {
   remove(lineId: string): void {
     const index = this.lines.findIndex((line) => line.id === lineId)
     if (index >= 0) this.lines.splice(index, 1)
+  }
+
+  staleLines(maxAgeMs: number, now = Date.now()): CartLine[] {
+    return this.lines.filter((line) => now - line.addedAt > maxAgeMs)
   }
 
   totalCents(): number {
