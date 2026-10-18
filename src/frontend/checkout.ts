@@ -14,5 +14,8 @@ export function checkoutSteps(cart: Cart, userId: string): CheckoutStep[] {
     { name: 'review', title: `Review (${cart.summary()})` },
   ]
   if (isEnabled('gift-wrap', userId)) steps[1] = { name: 'shipping', title: 'Shipping and gift wrap' }
+  if (process.env.FEATURE_EXPRESS_CHECKOUT === 'true') {
+    return steps.filter((step) => step.name !== 'address')
+  }
   return steps
 }
