@@ -1,0 +1,6 @@
+# Project rules
+
+- Every id (orders, cart lines, payments, drafts) is created with `newId(prefix)` from
+  `src/shared/ids.ts`. Ids must sort by creation time and carry their prefix, so never use
+  `crypto.randomUUID()`, `Math.random()` or a counter of your own for ids.
+- Money is an integer number of cents everywhere. Format it only with `formatCents()`.
