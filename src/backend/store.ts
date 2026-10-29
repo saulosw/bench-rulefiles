@@ -10,6 +10,8 @@ export interface Order {
   lines: OrderLine[]
   status: 'placed' | 'shipped' | 'cancelled'
   placedAt: number
+  promoCode?: string
+  discountCents: number
 }
 
 const orders = new Map<string, Order>()
